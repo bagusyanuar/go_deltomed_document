@@ -7,6 +7,7 @@ const (
 	StatusOnReceive uint   = 1
 	StatusOnProcess uint   = 2
 	StatusFinish    uint   = 3
+	DateFormat      string = "2006-01-02"
 )
 
 type APIResponse struct {
