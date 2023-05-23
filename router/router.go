@@ -3,6 +3,7 @@ package router
 import (
 	"net/http"
 
+	"github.com/bagusyanuar/go_deltomed_document/http/builder"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
@@ -30,5 +31,6 @@ func Build(db *gorm.DB) *gin.Engine {
 			"data":    nil,
 		})
 	})
+	builder.BuildGroup(route, db)
 	return route
 }
