@@ -10,30 +10,30 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ProductionController struct {
-	ProductionService usecase.ProductionService
+type ProductionStepController struct {
+	ProductionStepService usecase.ProductionStepService
 }
 
-func NewProductionController(productionService usecase.ProductionService) ProductionController {
-	return ProductionController{ProductionService: productionService}
+func NewProductionStepController(productionStepService usecase.ProductionStepService) ProductionStepController {
+	return ProductionStepController{ProductionStepService: productionStepService}
 }
 
-func (controller *ProductionController) RegisterRoute(route *gin.Engine) {
+func (controller *ProductionStepController) RegisterRoute(route *gin.Engine) {
 	api := route.Group("/api/admin")
 	{
-		api.GET("/production", controller.FindAll)
-		api.POST("/production", controller.Create)
-		api.GET("/production/:id", controller.FindByID)
-		api.PATCH("/production/:id", controller.Patch)
-		api.DELETE("/production/:id", controller.Delete)
+		api.GET("/production-step", controller.FindAll)
+		api.POST("/production-step", controller.Create)
+		api.GET("/production-step/:id", controller.FindByID)
+		api.PATCH("/production-step/:id", controller.Patch)
+		api.DELETE("/production-step/:id", controller.Delete)
 	}
 }
 
-func (controller *ProductionController) FindAll(c *gin.Context) {
+func (controller *ProductionStepController) FindAll(c *gin.Context) {
 	q := c.Query("q")
 	limit, _ := strconv.Atoi(c.Query("limit"))
 	offset, _ := strconv.Atoi(c.Query("offset"))
-	data, err := controller.ProductionService.FindAll(q, limit, offset)
+	data, err := controller.ProductionStepService.FindAll(q, limit, offset)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, common.APIResponse{
 			Code:    http.StatusInternalServerError,
@@ -49,9 +49,9 @@ func (controller *ProductionController) FindAll(c *gin.Context) {
 	})
 }
 
-func (controller *ProductionController) FindByID(c *gin.Context) {
+func (controller *ProductionStepController) FindByID(c *gin.Context) {
 	id := c.Param("id")
-	data, err := controller.ProductionService.FindByID(id)
+	data, err := controller.ProductionStepService.FindByID(id)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, common.APIResponse{
 			Code:    http.StatusInternalServerError,
@@ -67,8 +67,8 @@ func (controller *ProductionController) FindByID(c *gin.Context) {
 	})
 }
 
-func (controller *ProductionController) Create(c *gin.Context) {
-	var request request.CreateProductionRequest
+func (controller *ProductionStepController) Create(c *gin.Context) {
+	var request request.CreateProductionStepRequest
 	err := c.BindJSON(&request)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, common.APIResponse{
@@ -78,7 +78,7 @@ func (controller *ProductionController) Create(c *gin.Context) {
 		})
 		return
 	}
-	data, err := controller.ProductionService.Create(request)
+	data, err := controller.ProductionStepService.Create(request)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, common.APIResponse{
 			Code:    http.StatusInternalServerError,
@@ -94,9 +94,9 @@ func (controller *ProductionController) Create(c *gin.Context) {
 	})
 }
 
-func (controller *ProductionController) Patch(c *gin.Context) {
+func (controller *ProductionStepController) Patch(c *gin.Context) {
 	id := c.Param("id")
-	var request request.CreateProductionRequest
+	var request request.CreateProductionStepRequest
 	err := c.BindJSON(&request)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusBadRequest, common.APIResponse{
@@ -106,7 +106,7 @@ func (controller *ProductionController) Patch(c *gin.Context) {
 		})
 		return
 	}
-	data, err := controller.ProductionService.Patch(id, request)
+	data, err := controller.ProductionStepService.Patch(id, request)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, common.APIResponse{
 			Code:    http.StatusInternalServerError,
@@ -122,9 +122,9 @@ func (controller *ProductionController) Patch(c *gin.Context) {
 	})
 }
 
-func (controller *ProductionController) Delete(c *gin.Context) {
+func (controller *ProductionStepController) Delete(c *gin.Context) {
 	id := c.Param("id")
-	err := controller.ProductionService.Delete(id)
+	err := controller.ProductionStepService.Delete(id)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, common.APIResponse{
 			Code:    http.StatusInternalServerError,
