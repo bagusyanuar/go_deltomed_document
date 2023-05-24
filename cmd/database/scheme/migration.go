@@ -11,5 +11,6 @@ func Migrate(database *gorm.DB) {
 	database.AutoMigrate(&Production{})
 	database.AutoMigrate(&ProductionStep{})
 	database.AutoMigrate(&ProductionSubStep{})
+	database.AutoMigrate(&Task{})
 	log.Println("success migrate database")
 }

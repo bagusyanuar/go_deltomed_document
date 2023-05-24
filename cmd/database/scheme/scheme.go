@@ -50,3 +50,19 @@ type ProductionSubStep struct {
 	DeletedAt        gorm.DeletedAt `gorm:"column:deleted_at;" json:"deleted_at"`
 	ProductionStep   ProductionStep `gorm:"foreignKey:ProductionStepID"`
 }
+
+type Task struct {
+	ID           uuid.UUID      `gorm:"type:char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;primaryKey;" json:"id"`
+	ProductionID uuid.UUID      `gorm:"type:char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;index:idx_production_id;not null;" json:"production_id"`
+	SupportID    uuid.UUID      `gorm:"type:char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;index:idx_support_id;not null;" json:"support_id"`
+	Code         string         `gorm:"index:idx_code,unique;type:varchar(16);not null;" json:"code"`
+	Name         string         `gorm:"type:varchar(255);not null;" json:"name"`
+	StartDate    datatypes.Date `gorm:"type:date;not null;" json:"start_date"`
+	FinishDate   datatypes.Date `gorm:"type:date;not null;" json:"finish_date"`
+	CompletedAt  datatypes.Date `gorm:"type:date;" json:"completed_at"`
+	CreatedAt    time.Time      `gorm:"column:created_at;not null" json:"created_at"`
+	UpdatedAt    time.Time      `gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt    gorm.DeletedAt `gorm:"column:deleted_at;" json:"deleted_at"`
+	Production   Production     `gorm:"foreignKey:ProductionID"`
+	Support      User           `gorm:"foreignKey:SupportID"`
+}
