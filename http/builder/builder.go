@@ -7,4 +7,5 @@ import (
 
 func BuildGroup(route *gin.Engine, db *gorm.DB) {
 	AdminBuilder(route, db)
+	SupportBuilder(route, db)
 }

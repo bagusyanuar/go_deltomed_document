@@ -9,6 +9,11 @@ import (
 )
 
 func AdminBuilder(route *gin.Engine, db *gorm.DB) {
+	authRepository := repository.NewAuthRepository(db)
+	authService := service.NewAuthService(authRepository)
+	authController := controller.NewAuthController(authService)
+	authController.RegisterRoute(route)
+
 	userRepository := repository.NewUserRepository(db)
 	userService := service.NewUserService(userRepository)
 	userController := controller.NewUserController(userService)

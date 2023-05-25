@@ -30,7 +30,6 @@ func (repository *implementsTaskReposioty) Delete(id string) (err error) {
 // FindAll implements admin.TaskRepository
 func (repository *implementsTaskReposioty) FindAll(param string, limit int, offset int) (data []model.Task, err error) {
 	if err = repository.Database.Debug().
-		Where("username LIKE ?", "%"+param+"%").
 		Limit(limit).
 		Offset(offset).
 		Find(&data).Error; err != nil {

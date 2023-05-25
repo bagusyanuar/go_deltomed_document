@@ -21,11 +21,11 @@ func NewProductionSubStepController(productionSubStepService usecase.ProductionS
 func (controller *ProductionSubStepController) RegisterRoute(route *gin.Engine) {
 	api := route.Group("/api/admin")
 	{
-		api.GET("/production-step", controller.FindAll)
-		api.POST("/production-step", controller.Create)
-		api.GET("/production-step/:id", controller.FindByID)
-		api.PATCH("/production-step/:id", controller.Patch)
-		api.DELETE("/production-step/:id", controller.Delete)
+		api.GET("/production-sub-step", controller.FindAll)
+		api.POST("/production-sub-step", controller.Create)
+		api.GET("/production-sub-step/:id", controller.FindByID)
+		api.PATCH("/production-sub-step/:id", controller.Patch)
+		api.DELETE("/production-sub-step/:id", controller.Delete)
 	}
 }
 

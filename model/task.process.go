@@ -14,7 +14,7 @@ type TaskProcess struct {
 	ProductionsubStepID uuid.UUID         `json:"production_sub_step_id"`
 	SubmittedAt         *time.Time        `json:"submitted_at"`
 	ApprovedAt          time.Time         `json:"approved_at"`
-	Image               string            `json:"image"`
+	Image               *string           `json:"image"`
 	CreatedAt           time.Time         `gorm:"column:created_at;not null" json:"created_at"`
 	UpdatedAt           time.Time         `gorm:"column:updated_at;not null" json:"updated_at"`
 	DeletedAt           gorm.DeletedAt    `gorm:"column:deleted_at;" json:"deleted_at"`
