@@ -8,6 +8,7 @@ const (
 	StatusOnProcess uint   = 2
 	StatusFinish    uint   = 3
 	DateFormat      string = "2006-01-02"
+	CodeDateFormat  string = "20060102150405"
 )
 
 type APIResponse struct {

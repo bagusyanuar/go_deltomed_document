@@ -66,3 +66,19 @@ type Task struct {
 	Production   Production     `gorm:"foreignKey:ProductionID"`
 	Support      User           `gorm:"foreignKey:SupportID"`
 }
+
+type TaskProcess struct {
+	ID                  uuid.UUID         `gorm:"type:char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;primaryKey;" json:"id"`
+	TaskID              uuid.UUID         `gorm:"type:char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;index:idx_task;not null;" json:"task_id"`
+	ProductionStepID    uuid.UUID         `gorm:"type:char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;index:idx_production_step_id;not null;" json:"production_step_id"`
+	ProductionSubStepID uuid.UUID         `gorm:"type:char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;index:idx_production_sub_step_id;not null;" json:"production_sub_step_id"`
+	SubmittedAt         time.Time         `gorm:"column:submitted_at;not null;" json:"submitted_at"`
+	ApprovedAt          time.Time         `gorm:"column:approved_at;" json:"approved_at"`
+	Image               string            `gorm:"type:text;not null;" json:"image"`
+	CreatedAt           time.Time         `gorm:"column:created_at;not null" json:"created_at"`
+	UpdatedAt           time.Time         `gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt           gorm.DeletedAt    `gorm:"column:deleted_at;" json:"deleted_at"`
+	Task                Task              `gorm:"foreignKey:TaskID"`
+	ProductionStep      ProductionStep    `gorm:"foreignKey:ProductionStepID"`
+	ProductionSubStep   ProductionSubStep `gorm:"foreignKey:ProductionSubStepID"`
+}

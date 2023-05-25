@@ -28,4 +28,9 @@ func AdminBuilder(route *gin.Engine, db *gorm.DB) {
 	productionSubStepService := service.NewProductionSubStepService(productionSubStepRepository)
 	productionSubStepController := controller.NewProductionSubStepController(productionSubStepService)
 	productionSubStepController.RegisterRoute(route)
+
+	taskRepository := repository.NewTaskRepository(db)
+	taskService := service.NewTaskService(taskRepository)
+	taskController := controller.NewTaskController(taskService)
+	taskController.RegisterRoute(route)
 }
