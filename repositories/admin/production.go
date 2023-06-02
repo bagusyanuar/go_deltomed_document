@@ -30,7 +30,7 @@ func (repository *implementsProductionRepository) Delete(id string) (err error) 
 // FindAll implements admin.ProductionRepository
 func (repository *implementsProductionRepository) FindAll(param string, limit int, offset int) (data []model.Production, err error) {
 	if err = repository.Database.Debug().
-		Where("username LIKE ?", "%"+param+"%").
+		Where("name LIKE ?", "%"+param+"%").
 		Limit(limit).
 		Offset(offset).
 		Find(&data).Error; err != nil {
