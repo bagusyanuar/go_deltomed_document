@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"errors"
 	"net/http"
 	"strconv"
 
@@ -8,6 +9,7 @@ import (
 	"github.com/bagusyanuar/go_deltomed_document/http/request"
 	usecase "github.com/bagusyanuar/go_deltomed_document/usecase/admin"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type ProductionController struct {
@@ -53,6 +55,14 @@ func (controller *ProductionController) FindByID(c *gin.Context) {
 	id := c.Param("id")
 	data, err := controller.ProductionService.FindByID(id)
 	if err != nil {
+		if errors.Is(gorm.ErrRecordNotFound, err) {
+			c.JSON(http.StatusOK, common.APIResponse{
+				Code:    http.StatusOK,
+				Message: err.Error(),
+				Data:    data,
+			})
+			return
+		}
 		c.AbortWithStatusJSON(http.StatusInternalServerError, common.APIResponse{
 			Code:    http.StatusInternalServerError,
 			Message: err.Error(),
