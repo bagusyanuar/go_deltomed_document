@@ -43,7 +43,7 @@ func (repository *implementsProductionRepository) FindAll(param string, limit in
 func (repository *implementsProductionRepository) FindByID(id string) (data *model.Production, err error) {
 	if err = repository.Database.Debug().
 		Where("id = ?", id).
-		Preload("ProductionStep").
+		Preload("ProductionStep.ProductionSubStep").
 		First(&data).Error; err != nil {
 		return nil, err
 	}
